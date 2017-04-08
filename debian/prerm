@@ -1,0 +1,13 @@
+#!/bin/sh
+# prerm for factorio-mutlienv-ctl
+
+PKG=factorio-mutlienv-ctl
+
+if [ "$1" = remove ] || [ "$1" = purge ] ; then
+    echo " => Note: uninstalling factorio-mutlienv-ctl will NOT remove any user data or the factorio user!"
+    systemctl stop 'factorio@*'
+fi
+
+#DEBHELPER#
+
+exit 0

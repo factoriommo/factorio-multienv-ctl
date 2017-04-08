@@ -1,0 +1,17 @@
+before_script:
+    - source /etc/profile
+
+stages:
+    - build
+
+run-build:
+    stage: build
+    script:
+        - apt-get install -y bash-completion
+        - dpkg-buildpackage -us -uc 
+        - mkdir build
+        - mv ../*.deb build/
+
+    artifacts:
+        paths:
+            - build/*

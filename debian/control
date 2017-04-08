@@ -1,0 +1,15 @@
+Source: factorio-multienv-ctl
+Section: misc
+Priority: optional
+Maintainer: maikoool <maikoool@factoriommo.org>
+Standards-Version: 3.9.2
+Build-Depends: debhelper
+Build-Depends-Indep: bash-completion
+
+Package: factorio-multienv-ctl
+Architecture: amd64
+Pre-Depends: bash,tar,curl,grep,systemd
+Depends: sed
+Recommends: bash-completion
+Description: Factorio environment manager and server updater
+Conflicts: factorio-init

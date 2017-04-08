@@ -1,0 +1,4 @@
+factorio /usr/bin
+factorio@.service /lib/systemd/system
+config.ini /etc/factorio
+server-settings.json /etc/factorio

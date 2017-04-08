@@ -1,0 +1,8 @@
+*.swp
+*.deb
+*.changes
+*.dsc
+*.tar.gz
+*.build
+debian/factorio-init/*
+*.debhelper.log
