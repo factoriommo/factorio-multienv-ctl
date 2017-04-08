@@ -1,7 +1,7 @@
 Source: factorio-multienv-ctl
 Section: misc
 Priority: optional
-Maintainer: maikoool <maikoool@factoriommo.org>
+Maintainer: Maikel Wever <maikelwever@gmail.com>
 Standards-Version: 3.9.2
 Build-Depends: debhelper
 Build-Depends-Indep: bash-completion

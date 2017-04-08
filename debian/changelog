@@ -1,5 +1,11 @@
+factorio-multienv-ctl (0.14.22.1) unstable; urgency=medium
+
+  * Fix bash completion
+
+ -- Maikel Wever <maikelwever@gmail.com>  Sat, 08 Apr 2017 19:13:35 +0200
+
 factorio-multienv-ctl (0.14.22) unstable; urgency=medium
 
   * Rework of factorio-init
 
- -- maikoool <maikool@factoriommo.org>  Sat, 08 Apr 2017 17:03:36 +0200
+ -- Maikel Wever <maikelwever@gmail.com>  Sat, 08 Apr 2017 19:12:47 +0200
