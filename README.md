@@ -22,7 +22,9 @@ Quickstart
 Prepared Debian package
 -----------------------
 
-You can find prebuilt packages for Debian 8 at http://repo.factoriommo.org/factorio-multienv-ctl/
+You can find prebuilt packages for Debian 8 at http://repo.factoriommo.org/
+
+These might also work for other apt based distros.
 
 ```
 # Add gpg pubkey
@@ -78,27 +80,28 @@ so ensure your customized server-settings.json contains all values.
 Required configfiles:
 
 - config.ini
-- init.conf
 - server-settings.json
 
-Optionally you may create `map-gen-settings.json` or one of the parametrized versions.
+Optionally you may create `map-gen-settings.json` and/or `init.conf` (see below), 
+and their paramatric versions.
 
-You can create overrides for specific instances as by creating a folder in `/etc/factorio`. 
-For example for instance `FENV=asdf` to override `server-settings.json` you create
+You can create overrides for specific instances by putting them in `/etc/factorio/$FENV/`. 
+For instance `FENV=asdf` to override `server-settings.json` you create
 `/etc/factorio/asdf/server-settings.json`.
 
-Note that `/etc/factorio/asdf/init.conf` will always inherit from `/etc/factorio/init.conf`.
+Note that `/etc/factorio/asdf/init.conf` inherits from `/etc/factorio/init.conf` if it exists,
+and the json files don't.
 
 If you create `/etc/factorio/asdf/config.ini`, 
 it will be copied to `/var/factorio/instances/asdf/config.ini`,
-and the `write_dir` will always be overwritten.
+and the `write_dir` will be overwritten in the latter on every start.
 
 
-Available values for init.config
---------------------------------
+Available values for init.conf
+------------------------------
 
 The following values all have sane defaults, but can be customized.
-In theory you can override every variable used the main script,
+In theory you can override every variable used in the main script,
 but it's recommended you don't.
 
 ```
@@ -118,7 +121,7 @@ Debugging
 
 If you find yourself wondering why stuff is not working the way you expect:
 
- - Check the logs, I suggest you `tail -f /var/factorio/instances/{FENV}/factorio-current.log` in a separate session
+ - Check the logs, you can use `factorio log` and `factorio log --tail`, also parametric: `FENV=asdf factorio log`.
  - Enable debugging in the config and/or:
  - Try running the same commands as the factorio user (`factorio invocation` will tell you what the factorio user tries to run at start)
 
