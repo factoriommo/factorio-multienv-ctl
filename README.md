@@ -166,7 +166,7 @@ You can copy .old-server-settings.json or create a customized server-settings.js
 Building the Debian package
 ---------------------------
 
-Prerequisites: `devscripts dpkg-dev debhelpers debianutils bash-completion`
+Prerequisites: `devscripts dpkg-dev debhelper debianutils bash-completion`
 
 Then run `debuild` in the folder containing the `debian` folder (the same one as this readme is in.)
 

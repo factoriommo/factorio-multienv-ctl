@@ -8,7 +8,7 @@ Build-Depends-Indep: bash-completion
 
 Package: factorio-multienv-ctl
 Architecture: amd64
-Pre-Depends: bash,tar,curl,grep,systemd
+Pre-Depends: bash,bsdtar,curl,grep,systemd,ca-certificates
 Depends: sed
 Recommends: bash-completion
 Description: Factorio environment manager and server updater

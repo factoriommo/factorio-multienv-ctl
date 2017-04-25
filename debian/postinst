@@ -4,7 +4,7 @@
 set -e
 
 PKG=factorio-mutlienv-ctl
-SERVER_VERSION="0.14.22"
+SERVER_VERSION="0.15.1"
 SERVER_DL_URL="https://www.factorio.com/get-download/$SERVER_VERSION/headless/linux64"
 
 
@@ -33,7 +33,7 @@ if [ "$1" = configure ] ; then
         systemctl stop 'factorio@*'
 
         echo " => Downloading and updating factorio server..."
-        curl --progress-bar -L "$SERVER_DL_URL" | tar zx -C /opt/factorio/
+        curl --progress-bar -L "$SERVER_DL_URL" | bsdtar xf - -C /opt/factorio/
 
         echo " => Downloading done, factorio install OK."
         echo " => You will have to MANUALLY restart your server(s)."

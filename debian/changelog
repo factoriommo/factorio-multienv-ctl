@@ -1,3 +1,11 @@
+factorio-multienv-ctl (0.15.1) unstable; urgency=medium
+
+  * Update to 0.15.1
+  * Use bsdtar instead of tar to extract from stdin
+  * Require ca-certificates (curl download in postinst requires this)
+
+ -- Maikel Wever <maikelwever@gmail.com>  Tue, 25 Apr 2017 13:01:16 +0200
+
 factorio-multienv-ctl (0.14.22.1) unstable; urgency=medium
 
   * Fix bash completion
