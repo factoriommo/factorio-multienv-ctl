@@ -24,11 +24,13 @@ Prepared Debian package
 
 You can find prebuilt packages for Debian 8 at http://repo.factoriommo.org/
 
-These might also work for other apt based distros.
+These have been known to work on Ubuntu 16.04 and 16.10 as well, they might also work for other apt based distros running systemd as init.
 
 ```
 # Add gpg pubkey
 curl http://repo.factoriommo.org/apt.gpg | apt-key add -
+# or if you prefer wget instead of curl (installed by default on Ubuntu)
+wget -O - http://repo.factoriommo.org/apt.gpg | apt-key add -
 
 # Add deb repo entry
 echo "deb http://repo.factoriommo.org/ jessie main" > /etc/apt/sources.list.d/factoriommo.list

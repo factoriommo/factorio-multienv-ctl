@@ -14,7 +14,7 @@ if [ "$1" = configure ] ; then
 
     # Set up the folders we need.
     mkdir -p /opt/factorio/factorio/temp
-    mkdir -p /var/factorio/instances
+    mkdir -p /var/factorio/instances/default/saves
     mkdir -p /var/factorio/mods
 
     # Various runtime permissions
@@ -22,6 +22,8 @@ if [ "$1" = configure ] ; then
     chown factorio:factorio /opt/factorio/factorio/temp
     chown factorio:factorio /var/factorio
     chown factorio:factorio /var/factorio/instances
+    chown factorio:factorio /var/factorio/instances/default
+    chown factorio:factorio /var/factorio/instances/default/saves
     chown factorio:factorio /var/factorio/mods
 
     if grep -q "$SERVER_VERSION" /opt/factorio/factorio/data/changelog.txt; then
