@@ -4,6 +4,12 @@ factorio-multienv-ctl (0.15.5) unstable; urgency=medium
 
  -- Arvids Godjuks <arvids.godjuks@gmail.com>  Sun, 30 Apr 2017 14:10:00 +0200
 
+factorio-multienv-ctl (0.15.4.1) unstable; urgency=medium
+
+  * Bump to hopefully trigger postinst update
+
+ -- Maikel Wever <maikelwever@gmail.com>  Sun, 30 Apr 2017 02:28:32 +0200
+
 factorio-multienv-ctl (0.15.4) unstable; urgency=medium
 
   * Update to 0.15.4
