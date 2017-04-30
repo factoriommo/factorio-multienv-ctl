@@ -6,3 +6,4 @@
 *.build
 debian/factorio-init/*
 *.debhelper.log
+.idea
