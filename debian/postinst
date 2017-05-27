@@ -4,7 +4,7 @@
 set -e
 
 PKG=factorio-mutlienv-ctl
-SERVER_VERSION="0.15.15"
+SERVER_VERSION="0.15.16"
 SERVER_DL_URL="https://www.factorio.com/get-download/$SERVER_VERSION/headless/linux64"
 
 
