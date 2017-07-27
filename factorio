@@ -298,7 +298,7 @@ send_cmd(){
   if is_running; then
     if [ -p ${FIFO} ]; then
       # Grab a random 16 character id for our command
-      cmdid=$(cat /dev/urandom |tr -dc 'a-zA-Z0-9' |fold -w 16 |head -n 1)
+      cmdid=$(head -c 1000 /dev/urandom |tr -dc 'a-zA-Z0-9' |fold -w 16 |head -n 1)
       # Whisper that unknown player named after our random id
       echo "/w ${cmdid}" > ${FIFO}
       # Wait for factorio to read stdin
