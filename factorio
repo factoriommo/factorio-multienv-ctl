@@ -76,7 +76,7 @@ as_user() {
   if [ $ME == $USERNAME ]; then
     bash -c "$1"
   else
-    su $USERNAME -s /bin/bash -c "$1"
+    sudo -u "$USERNAME" -H "$1"
   fi
 }
 
