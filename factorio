@@ -27,12 +27,17 @@ if [ -f "/etc/factorio/${FENV}/init.conf" ]; then
 fi
 
 
-if [ -z "${USERNAME}" ]; then
-  USERNAME=factorio
+if [ ${DEBUG} -gt 0 ]; then
+    # Enable bash tracing in DEBUG mode to help debug ;)
+    set -x
+fi
+
+if [ -z "${FUSERNAME}" ]; then
+  FUSERNAME=factorio
 fi
 
 if [ -z "${USERGROUP}" ]; then
-  USERGROUP=${USERNAME}
+  USERGROUP=${FUSERNAME}
 fi
 
 if [ -z "${HEADLESS}" ]; then
@@ -73,10 +78,10 @@ usage(){
 
 ME=`whoami`
 as_user() {
-  if [ $ME == $USERNAME ]; then
+  if [ $ME == $FUSERNAME ]; then
     bash -c "$1"
   else
-    sudo -u "$USERNAME" -H "$1"
+    sudo -u "$FUSERNAME" $1
   fi
 }
 
@@ -385,9 +390,9 @@ check_permissions(){
 
 fix_permissions() {
     read -p "This is a very crude way of fixing the permissions, if you are not sure what this does, press control+c now, else press enter."
-    chown -R $USERNAME:$USERGROUP $FACTORIO_PATH
-    chown -R $USERNAME:$USERGROUP $WRITE_DIR_BASE
-    chown -R $USERNAME:$USERGROUP $WRITE_DIR_BASE/../mods
+    chown -R $FUSERNAME:$USERGROUP $FACTORIO_PATH
+    chown -R $FUSERNAME:$USERGROUP $WRITE_DIR_BASE
+    chown -R $FUSERNAME:$USERGROUP $WRITE_DIR_BASE/../mods
 }
 
 test_deps(){
