@@ -81,7 +81,7 @@ as_user() {
   if [ $ME == $FUSERNAME ]; then
     bash -c "$1"
   else
-    sudo -u "$FUSERNAME" $1
+    sudo -u "$FUSERNAME" bash -c "$1"
   fi
 }
 
@@ -216,14 +216,14 @@ debug "Complete invocation base: ${INVOCATION_BASE}"
 
 
 is_running() {
-  if [ -e ${PIDFILE} ]; then
-    if kill -0 $(cat ${PIDFILE}) 2> /dev/null; then
+  if as_user "test -e ${PIDFILE}"; then
+    if as_user "kill -0 $(cat ${PIDFILE})"; then
       debug "${SERVICE_NAME} is running with pid $(cat ${PIDFILE})"
       return 0
     else
       debug "Found ${PIDFILE}, but the server is not running. It's possible that your server has crashed"
       debug "Check the log for details"
-      rm ${PIDFILE} 2> /dev/null
+      as_user "rm ${PIDFILE}"
       return 2
     fi
   fi
@@ -305,11 +305,11 @@ send_cmd(){
       # Grab a random 16 character id for our command
       cmdid=$(head -c 1000 /dev/urandom |tr -dc 'a-zA-Z0-9' |fold -w 16 |head -n 1)
       # Whisper that unknown player named after our random id
-      echo "/w ${cmdid}" > ${FIFO}
+      as_user "echo \"/w ${cmdid}\" > ${FIFO}"
       # Wait for factorio to read stdin
       sleep 1
       # Run the actual command
-      echo $@ > ${FIFO}
+      as_user "echo $@ > ${FIFO}"
       # Wait again, this might need more sleep for larger command output - time will tell (sorry future self for any head aches)
       sleep 1
       # Read the output file backwards - capture everything between the end of file until
@@ -415,7 +415,7 @@ case "$1" in
             exit 0
         else
             if [ -z "${IKNOWWHATIMDOING}" ]; then
-                systemctl start "factorio@${FENV}"
+                sudo systemctl start "factorio@${FENV}"
             else
                 if ! start_service; then
                     echo "Could not start $SERVICE_NAME"
@@ -429,7 +429,7 @@ case "$1" in
         # Stops the server
         if is_running; then
             if [ -z "${IKNOWWHATIMDOING}" ]; then
-                systemctl stop "factorio@${FENV}"
+                sudo systemctl stop "factorio@${FENV}"
             else
                 send_cmd "Server is being shut down on request"
                 if ! stop_service; then
@@ -468,7 +468,7 @@ case "$1" in
     status)
         # Shows server status
         if is_running; then
-            systemctl status "factorio@${FENV}"
+            sudo systemctl status "factorio@${FENV}"
             echo
             echo "$SERVICE_NAME is running."
         else
