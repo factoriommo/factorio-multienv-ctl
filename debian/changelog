@@ -1,3 +1,9 @@
+factorio-multienv-ctl (0.15.32.2) unstable; urgency=medium
+
+  * Bumping version to fix build issues
+
+ -- Arvids Godjuks <arvids.godjuks@gmail.com>  Wed, 02 August 2017 15:20:00 +0200
+
 factorio-multienv-ctl (0.15.32.1) stable; urgency=high
 
   * Bumping version to fix build issues
