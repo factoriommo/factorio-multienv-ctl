@@ -7,8 +7,8 @@ stages:
 run-build:
     stage: build
     script:
-        - apt-get install -y bash-completion devscripts
-        - debuild -us -uc -b
+        - apt-get install -y bash-completion
+        - dpkg-buildpackage -us -uc -b
         - mkdir build
         - mv ../*.deb build/
 
