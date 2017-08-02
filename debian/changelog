@@ -4,7 +4,7 @@ factorio-multienv-ctl (0.15.32) unstable; urgency=high
   * Quite a few crash fixes
   * Game changelog: https://forums.factorio.com/viewtopic.php?f=3&t=51505
 
- -- Arvids Godjuks <arvids.godjuks@gmail.com>  Wen, 02 August 2017 15:05:00 +0200
+ -- Arvids Godjuks <arvids.godjuks@gmail.com>  Wed, 02 August 2017 15:05:00 +0200
 
 factorio-multienv-ctl (0.15.31-1) unstable; urgency=low
 
