@@ -1,3 +1,11 @@
+factorio-multienv-ctl (0.15.32) unstable; urgency=high
+
+  * Update to 0.15.32
+  * Quite a few crash fixes
+  * Game changelog: https://forums.factorio.com/viewtopic.php?f=3&t=51505
+
+ -- Arvids Godjuks <arvids.godjuks@gmail.com>  Wen, 02 August 2017 15:05:00 +0200
+
 factorio-multienv-ctl (0.15.31-1) unstable; urgency=low
 
   * Patch to use sudo instead of su to provide credential caching when run as
