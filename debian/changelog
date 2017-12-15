@@ -1,3 +1,10 @@
+factorio-multienv-ctl (0.16.3) unstable; urgency=medium
+
+  * Update to 0.16.3
+  * Game changelog: https://forums.factorio.com/viewtopic.php?f=3&t=54890
+
+ -- Arvids Godjuks <arvids.godjuks@gmail.com>  Fri, 15 December 2017 17:20:00 +0200
+
 factorio-multienv-ctl (0.16.2) unstable; urgency=medium
 
   * Update to 0.16.2
