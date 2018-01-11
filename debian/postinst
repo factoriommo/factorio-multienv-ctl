@@ -6,11 +6,16 @@ set -e
 PKG=factorio-mutlienv-ctl
 SERVER_VERSION="0.16.16"
 SERVER_DL_URL="https://www.factorio.com/get-download/$SERVER_VERSION/headless/linux64"
+BINARY_DIR="/opt/factorio/factorio"
 
 
 if [ "$1" = configure ] ; then
     # Create factorio user if not exists
     id -u factorio > /dev/null || adduser --disabled-login --system --no-create-home --shell /bin/bash --group --gecos factorio factorio
+
+    if [ -d "$BINARY_DIR" ]; then
+        rm -Rf "$BINARY_DIR"
+    fi
 
     # Set up the folders we need.
     mkdir -p /opt/factorio/factorio/temp
