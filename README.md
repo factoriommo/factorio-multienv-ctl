@@ -5,6 +5,7 @@ Factorio-multienv-ctl is a fork of factorio-init, which allows you to have multi
 of factorio servers on the same machine. It also includes a Debian package
 which will set up both the factorio server binaries and factorio-multienv-ctl.
 
+[![Build Status](https://travis-ci.org/factoriommo/factorio-multienv-ctl.svg?branch=master)](https://travis-ci.org/factoriommo/factorio-multienv-ctl)
 
 Quickstart
 ----------
