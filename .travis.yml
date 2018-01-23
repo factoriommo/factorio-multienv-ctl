@@ -1,0 +1,5 @@
+sudo: enabled
+script:
+    - sudo apt-get update
+    - sudo apt-get install -y devscripts dpkg-dev debhelper debianutils bash-completion
+    - debuild -us -uc -b
