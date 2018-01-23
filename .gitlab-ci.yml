@@ -27,4 +27,4 @@ run-deploy:
         - chmod 700 ~/.ssh/
         - chmod 600 ~/.ssh/*
         - scp -P 50022 build/*.deb aptlywebhook@maikelwever.nl:~/holding-pond/
-        - ssh -p 50022 aptlywebhook@maikelwever.nl ~/trigger-update.sh
+        - ssh -p 50022 aptlywebhook@maikelwever.nl "~/trigger-update.sh"
