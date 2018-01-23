@@ -1,3 +1,9 @@
+factorio-multienv-ctl (0.16.18.2) UNRELEASED; urgency=medium
+
+  * Fix previous commit
+
+ -- Maikel Wever <maikelwever@gmail.com>  Tue, 23 Jan 2018 14:11:00 +0100
+
 factorio-multienv-ctl (0.16.18.1) unstable; urgency=medium
 
   * Re-order postinst file to fix some edge-cases.

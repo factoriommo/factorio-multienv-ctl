@@ -8,18 +8,14 @@ SERVER_VERSION="0.16.18"
 SERVER_DL_URL="https://www.factorio.com/get-download/$SERVER_VERSION/headless/linux64"
 INSTALL_DIR="/opt/factorio"
 TAR_DIR_NAME="factorio"
+DATA_DIR="/var/factorio"
 
 
 if [ "$1" = configure ] ; then
     # Create factorio user if not exists
     id -u factorio > /dev/null || adduser --disabled-login --system --no-create-home --shell /bin/bash --group --gecos factorio factorio
 
-    # Set up the folders we need.
-    mkdir -p /opt/factorio/factorio/temp
-    mkdir -p /var/factorio/instances/default/saves
-    mkdir -p /var/factorio/mods
-
-    if grep -q "$SERVER_VERSION" /opt/factorio/factorio/data/changelog.txt; then
+    if grep -q "$SERVER_VERSION" "$INSTALL_DIR/$TAR_DIR_NAME/data/changelog.txt"; then
         echo " => The requested factorio version or newer is already installed: v$SERVER_VERSION"
     else
         # First: if server is running we need to stop it.
@@ -31,25 +27,31 @@ if [ "$1" = configure ] ; then
         BINARY_DIR="$INSTALL_DIR/$TAR_DIR_NAME"
         if [ -d "$BINARY_DIR" ]; then
             rm -Rf "$BINARY_DIR"
-            mkdir -p "$BINARY_DIR"
         fi
 
         # Lastly: update and extract the (new) game files.
         echo " => Downloading and updating factorio server..."
+        mkdir -p "$INSTALL_DIR"
         curl --progress-bar -L "$SERVER_DL_URL" | bsdtar xf - -C "$INSTALL_DIR"
 
         echo " => Downloading done, factorio install OK."
         echo " => You will have to MANUALLY restart your server(s)."
     fi
 
+    # Set up the folders we need.
+    mkdir -p "$INSTALL_DIR/factorio/temp"
+    mkdir -p "$DATA_DIR/instances/default/saves"
+    mkdir -p "$DATA_DIR/mods"
+
     # Sets various runtime permissions. Ensures factorio user can access game files.
-    chown factorio:factorio /opt/factorio/factorio
-    chown factorio:factorio /opt/factorio/factorio/temp
-    chown factorio:factorio /var/factorio
-    chown factorio:factorio /var/factorio/instances
-    chown factorio:factorio /var/factorio/instances/default
-    chown factorio:factorio /var/factorio/instances/default/saves
-    chown factorio:factorio /var/factorio/mods
+    chown factorio:factorio "$INSTALL_DIR/factorio"
+    chown factorio:factorio "$INSTALL_DIR/factorio/temp"
+
+    chown factorio:factorio "$DATA_DIR"
+    chown factorio:factorio "$DATA_DIR/instances"
+    chown factorio:factorio "$DATA_DIR/instances/default"
+    chown factorio:factorio "$DATA_DIR/instances/default/saves"
+    chown factorio:factorio "$DATA_DIR/mods"
 
 fi
 

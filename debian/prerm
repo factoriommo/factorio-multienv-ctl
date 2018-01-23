@@ -8,6 +8,13 @@ if [ "$1" = remove ] || [ "$1" = purge ] ; then
     systemctl stop 'factorio@*'
 fi
 
+if [ "$1" = purge ] ; then
+    echo " => Note: purge selected, removing game binary data!"
+    if [ -d "/opt/factorio/factorio" ]; then
+        rm -Rf /opt/factorio/factorio
+    fi
+fi
+
 #DEBHELPER#
 
 exit 0
