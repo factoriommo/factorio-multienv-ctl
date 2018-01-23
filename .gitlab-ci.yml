@@ -3,6 +3,7 @@ before_script:
 
 stages:
     - build
+    - deploy
 
 run-build:
     stage: build
@@ -15,3 +16,13 @@ run-build:
     artifacts:
         paths:
             - build/*
+
+run-deploy:
+    stage: deploy
+    script:
+        - mkdir -p ~/.ssh
+        - echo "$SSH_PUBLIC_KEY" > ~/.ssh/id_rsa.pub
+        - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+        - scp -P 50022 build/*.deb aptlywebhook@maikelwever.nl:~/holding-pond/
+        - ssh -p 50022 aptlywebhook@maikelwever.nl ~/trigger-update.sh
