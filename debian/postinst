@@ -6,30 +6,18 @@ set -e
 PKG=factorio-mutlienv-ctl
 SERVER_VERSION="0.16.18"
 SERVER_DL_URL="https://www.factorio.com/get-download/$SERVER_VERSION/headless/linux64"
-BINARY_DIR="/opt/factorio/factorio"
+INSTALL_DIR="/opt/factorio"
+TAR_DIR_NAME="factorio"
 
 
 if [ "$1" = configure ] ; then
     # Create factorio user if not exists
     id -u factorio > /dev/null || adduser --disabled-login --system --no-create-home --shell /bin/bash --group --gecos factorio factorio
 
-    if [ -d "$BINARY_DIR" ]; then
-        rm -Rf "$BINARY_DIR"
-    fi
-
     # Set up the folders we need.
     mkdir -p /opt/factorio/factorio/temp
     mkdir -p /var/factorio/instances/default/saves
     mkdir -p /var/factorio/mods
-
-    # Various runtime permissions
-    chown factorio:factorio /opt/factorio/factorio
-    chown factorio:factorio /opt/factorio/factorio/temp
-    chown factorio:factorio /var/factorio
-    chown factorio:factorio /var/factorio/instances
-    chown factorio:factorio /var/factorio/instances/default
-    chown factorio:factorio /var/factorio/instances/default/saves
-    chown factorio:factorio /var/factorio/mods
 
     if grep -q "$SERVER_VERSION" /opt/factorio/factorio/data/changelog.txt; then
         echo " => The requested factorio version or newer is already installed: v$SERVER_VERSION"
@@ -39,12 +27,30 @@ if [ "$1" = configure ] ; then
         echo " => Stopping all factorio servers..."
         systemctl stop 'factorio@*'
 
+        # Then: we remove the old binary folder to ensure no crap is left.
+        BINARY_DIR="$INSTALL_DIR/$TAR_DIR_NAME"
+        if [ -d "$BINARY_DIR" ]; then
+            rm -Rf "$BINARY_DIR"
+            mkdir -p "$BINARY_DIR"
+        fi
+
+        # Lastly: update and extract the (new) game files.
         echo " => Downloading and updating factorio server..."
-        curl --progress-bar -L "$SERVER_DL_URL" | bsdtar xf - -C /opt/factorio/
+        curl --progress-bar -L "$SERVER_DL_URL" | bsdtar xf - -C "$INSTALL_DIR"
 
         echo " => Downloading done, factorio install OK."
         echo " => You will have to MANUALLY restart your server(s)."
     fi
+
+    # Sets various runtime permissions. Ensures factorio user can access game files.
+    chown factorio:factorio /opt/factorio/factorio
+    chown factorio:factorio /opt/factorio/factorio/temp
+    chown factorio:factorio /var/factorio
+    chown factorio:factorio /var/factorio/instances
+    chown factorio:factorio /var/factorio/instances/default
+    chown factorio:factorio /var/factorio/instances/default/saves
+    chown factorio:factorio /var/factorio/mods
+
 fi
 
 #DEBHELPER#
