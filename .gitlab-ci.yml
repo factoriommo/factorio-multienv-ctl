@@ -24,7 +24,6 @@ run-deploy:
         - echo "$SSH_PUBLIC_KEY" > ~/.ssh/id_rsa.pub
         - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
         - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-        - scp -P 50022 build/*.deb aptlywebhook@maikelwever.nl:~/holding-pond/
         - chmod 700 ~/.ssh/
         - chmod 600 ~/.ssh/*
         - scp -P 50022 build/*.deb aptlywebhook@maikelwever.nl:~/holding-pond/
