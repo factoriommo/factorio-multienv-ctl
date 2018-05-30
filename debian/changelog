@@ -1,3 +1,11 @@
+factorio-multienv-ctl (0.16.45) unstable; urgency=medium
+
+  * Update to 0.16.45
+  * 0.16.44 is skipped due to botched 0.44 release that set all infinite science costs to 1
+  * Game changelog: https://forums.factorio.com/viewtopic.php?f=3&t=60556
+
+ -- Arvids Godjuks <arvids.godjuks@gmail.com>  Wed, 22 May 2018 11:15:00 +0200
+
 factorio-multienv-ctl (0.16.43) unstable; urgency=medium
 
   * Update to 0.16.43
