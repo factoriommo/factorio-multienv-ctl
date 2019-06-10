@@ -1,3 +1,6 @@
+image: debian:stretch
+
+
 before_script:
     - source /etc/profile
 
@@ -8,7 +11,8 @@ stages:
 run-build:
     stage: build
     script:
-        - apt-get install -y bash-completion
+        - apt-get update
+        - apt-get install -y devscripts dpkg-dev debhelper debianutils bash-completion fakeroot
         - dpkg-buildpackage -us -uc -b
         - mkdir build
         - mv ../*.deb build/
@@ -20,6 +24,8 @@ run-build:
 run-deploy:
     stage: deploy
     script:
+        - apt-get update
+        - apt-get install -y openssh-client
         - mkdir -p ~/.ssh
         - echo "$SSH_PUBLIC_KEY" > ~/.ssh/id_rsa.pub
         - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
