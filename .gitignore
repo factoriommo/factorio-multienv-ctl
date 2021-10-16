@@ -7,3 +7,6 @@
 debian/factorio-init/*
 *.debhelper.log
 .idea
+debian/factorio-multienv-ctl*
+debian/.debhelper
+debian/files
