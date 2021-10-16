@@ -105,9 +105,47 @@ Available values for init.conf
 
 The following values all have sane defaults, but can be customized.
 In theory you can override every variable used in the main script,
-but it's recommended you don't.
+but it's recommended you don't. We divide the environment variable sin 2 categories: important and details
+
+
+### Important
+
+Alter factorio main metadata
+
+| Name | Default Value | Description |
+| ---| --- | --- |
+| `FENV` | default | name fo the environment representing the factorio server instance |
+| `Debug` | undefined | enable bass tracing to help debugging. If non-zero, we will output additional information when running the script. |
+| `EXTRA_BINARGS` | `--start-server-load-latest` | extra command line arguments you can feed to factorio executable |
+| `FUSERNAME` | factorio | Username used to run the `factorio` program |
+| `USERGROUP` | factorio | User group used to run `factorio` program |
+| `FACTORIO_PATH` | /opt/factorio/factorio | Path to a directory where the subpath `/bin/x64/factorio` can  be resolved soundly |
+| `SAVELOG` | 0 | If non-zero, we will delete the previous log file before starting the service|
+| `SERVER_PORT` | 34197 | the port where the server instance will listen for new connections |
+| `WRITE_DIR_BASE`| `/var/factorio/instances` | Directory containing every factorio server data instance |
+| `FCONF` | Either `/etc/factorio/${FENV}/config.ini` or, if non-existent, `/etc/factorio/config.ini`| |
+| `SERVER_SETTINGS` | Either `/etc/factorio/${FENV}/server-settings.json` or, if non-existent, `/etc/factorio/server-settings.json` |
+| `MAPGEN_CONF` | Either `/etc/factorio/${FENV}/map-gen-settings.json` or, if non-existent, `/etc/factorio/map-gen-settings.json` |
+| `MOD_DIRECTORY` | "" | If existent, the folder where we will pass to factorio containing the mod to load on the particular server instance. Needs to be writeable for the factorio user.|
+
+### Details
+
+Alter support metadata of the project
+
+| Name | Default Value | Description |
+| ---| --- | --- |
+| `PIDFILE_NAME` | server.pid | name of the file containing the server process id |
+|  `WRITE_DIR` | `/var/factorio/instances/${FENV}` | directory where the data of the factorio server instance  (specific to the given environment) will be saved. |
+| `CMDOUT_FILENAME` | factorio.log | File where we will write logs. If `CMDOUT` is left the default one, the file is placed under `WRITE_DIR` |
+| `FIFO` | server.fifo | file representing the communication channel from/to factorio stdin/stdout. If `CMDOUT` is left the default one, the file is placed under `WRITE_DIR` |
+| `PIDFILE` | `$WRITE_DIR/server.pid` | file containing the server process id. If `CMDOUT` is left the default one, the file is placed under `WRITE_DIR` |
+| `SERVER_BIND` | "" | |
+
+
+To customize the behavior of `factorio-multienv-cli`, you can create a bash script like this one:
 
 ```
+#!/usr/bin/env bash
 EXTRA_BINARGS="--start-server-load-latest"  # you should use `factorio load-save` with this.
 RCON_PORT=""
 RCON_PASSWORD=""
@@ -116,7 +154,10 @@ SERVER_BIND=""
 SERVER_PORT=34197
 MOD_DIRECTORY=""  # eg: /var/factorio/mods/ArumbaMegaModPack
 USERGROUP=factorio
-USERNAME=factorio
+FUSERNAME=factorio
+DEBUG=0
+
+factorio-multienv-cli newgame newAwesomeGame
 ```
 
 Debugging
@@ -125,7 +166,7 @@ Debugging
 If you find yourself wondering why stuff is not working the way you expect:
 
  - Check the logs, you can use `factorio log` and `factorio log --tail`, also parametric: `FENV=asdf factorio log`.
- - Enable debugging in the config and/or:
+ - Enable debugging in the config (by setting `DEBUG` variable to 1) and/or:
  - Try running the same commands as the factorio user (`factorio invocation` will tell you what the factorio user tries to run at start)
 
 ```bash
