@@ -1,0 +1,60 @@
+name: Build
+
+on: [push, pull_request]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Apt update
+      run: sudo apt update
+      
+    - name: Install dependencies
+      run: sudo apt install devscripts dpkg-dev debhelper debianutils bash-completion -y
+      
+    - name: Build
+      run: debuild -us -uc # Build unsigned
+      
+    - name: Create output folder
+      run: mkdir build
+
+    - name: Move build result
+      run: cp ../*.deb ./build
+
+    - name: Upload build artifact
+      uses: actions/upload-artifact@v2.2.4
+      with:
+        # Artifact name
+        name: factorio-multienv-ctl-debian # optional, default is artifact
+        path: build
+        if-no-files-found: error # optional, default is warn
+        # Duration after which artifact will expire in days. 0 means using default retention.
+        # Minimum 1 day. Maximum 90 days unless changed from the repository settings page.
+        retention-days: 0 # optional
+
+  pre-release:
+    needs: build
+    name: "Pre Release"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@master
+        with:
+          name: factorio-multienv-ctl-debian
+          path: .
+      
+      - name: List files
+        run: ls
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Development Build"
+          files: |
+            *.deb

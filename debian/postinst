@@ -4,7 +4,7 @@
 set -e
 
 PKG=factorio-mutlienv-ctl
-SERVER_VERSION="0.17.74"
+SERVER_VERSION="latest" # For earlier versions this was set to the current factorio version, ex 0.17.74.
 SERVER_DL_URL="https://www.factorio.com/get-download/$SERVER_VERSION/headless/linux64"
 INSTALL_DIR="/opt/factorio"
 TAR_DIR_NAME="factorio"

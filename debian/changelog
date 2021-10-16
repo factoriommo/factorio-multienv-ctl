@@ -1,3 +1,9 @@
+factorio-multienv-ctl (1.0.0) unstable; urgency=medium
+
+  * New build system, now always builds latest factorio version
+
+ -- DESKTOP-1600X <danielv@DESKTOP-1600X.localdomain>  Sat, 16 Oct 2021 17:59:38 +0200
+
 factorio-multienv-ctl (0.17.74) stable; urgency=medium
 
   * Update to 0.17.74
